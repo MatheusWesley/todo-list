@@ -8,7 +8,11 @@ export interface Task {
   isComplete: boolean;
 }
 
-export function NewTask() {
+interface NewTaskProps {
+  addNewTask: (task: Task) => void;
+}
+
+export function NewTask({ addNewTask }: NewTaskProps) {
   const [newTaskTitle, setNewTaskTitle] = useState<string>('');
 
   function handleCreateTask(event: FormEvent) {
@@ -25,7 +29,7 @@ export function NewTask() {
       isComplete: false,
     };
 
-    console.log(newTask);
+    addNewTask(newTask);
 
     setNewTaskTitle('');
   }
@@ -39,7 +43,7 @@ export function NewTask() {
       <form onSubmit={handleCreateTask} className={styles.inputContainer}>
         <input
           type="text"
-          value={newTaskTitle} // Estado controlado para o título
+          value={newTaskTitle}
           onChange={handleNewTaskChange}
           placeholder="Adicione uma nova tarefa."
         />

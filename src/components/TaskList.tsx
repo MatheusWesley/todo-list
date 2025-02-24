@@ -33,11 +33,21 @@ export function TaskList() {
     );
   }
 
+  function addNewTask(task: Task) {
+    setTasks((prevTasks) => [...prevTasks, task]);
+  }
+
+  function deleteTask(id: string) {
+    setTasks((prevTasks) =>
+      prevTasks.filter((task) => task.id !== id)
+    );
+  }
+
   const taskIsEmpty = tasks.length === 0;
 
   return (
     <div>
-      <NewTask />
+      <NewTask addNewTask={addNewTask} />
       <div className={styles.container}>
         <div className={styles.header}>
           <p>Tarefas criadas <span>{tasks.length}</span></p>
@@ -64,7 +74,8 @@ export function TaskList() {
                     />
                     <label htmlFor={task.id}>{task.title}</label>
                   </div>
-                  <button className={styles.action}>
+                  {/* Botão para deletar uma tarefa */}
+                  <button onClick={() => deleteTask(task.id)} className={styles.action}>
                     <Trash />
                   </button>
                 </div>
