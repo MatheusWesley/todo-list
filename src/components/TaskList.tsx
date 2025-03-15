@@ -2,28 +2,23 @@ import styles from './TaskList.module.css';
 
 import Clipboard from '../assets/clipboard.svg';
 import { TrashSimple } from 'phosphor-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NewTask, Task } from './NewTask';
 
 export function TaskList() {
 
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 'f29200d8-2a97-40c7-a6ed-010b6bd5f596',
-      title: 'Concluir o Desafio da Rocketseat',
-      isComplete: false,
-    },
-    {
-      id: 'dc351892-9fce-4e54-afae-0d39b5cddba3',
-      title: 'Estudar ReactJS',
-      isComplete: true,
-    },
-    {
-      id: 'dc351892-9fce-4e54-afae-0d39b5c33ba3',
-      title: 'Estudar TypeScript',
-      isComplete: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const storedTasks = localStorage.getItem('@todo-list-1.0.0')
+
+    return storedTasks ? JSON.parse(storedTasks) : []
+  });
+
+  useEffect(() => {
+    const stateJSON = JSON.stringify(tasks)
+
+    localStorage.setItem('@todo-list-1.0.0', stateJSON)
+
+  }, [tasks])
 
   function handleCheckboxChange(id: string) {
     setTasks((prevTasks) =>
