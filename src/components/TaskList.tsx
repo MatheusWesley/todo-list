@@ -1,7 +1,7 @@
 import styles from './TaskList.module.css';
 
 import Clipboard from '../assets/clipboard.svg';
-import { Trash } from '@phosphor-icons/react';
+import { TrashSimple } from 'phosphor-react';
 import { useState } from 'react';
 import { NewTask, Task } from './NewTask';
 
@@ -76,7 +76,7 @@ export function TaskList() {
                   </div>
                   {/* Botão para deletar uma tarefa */}
                   <button onClick={() => deleteTask(task.id)} className={styles.action}>
-                    <Trash />
+                    <TrashSimple />
                   </button>
                 </div>
               )
